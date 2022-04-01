@@ -12,6 +12,11 @@ let lowerCaseArr = [];
 let UpperCaseArr = [];
 let numericArr = [];
 let specialArr = [];
+let hasLower = false;
+let hasUpper = false;
+let hasNum = false;
+let hasSpecial = false;
+
 // Stating available password Requirements (prompts)
 
 // Validation
@@ -48,10 +53,11 @@ while (!isValid) {
   );
   if (includeLowerCase.toLowerCase() === 'yes') {
     lowerCaseArr = possibleCharacters.slice(0, 26);
+    hasLower = true;
     console.log(lowerCaseArr);
     console.log(possibleCharacters);
-  } else if(includeLowerCase.toLowerCase() === 'no'){
-    lowerCaseArr = []
+  } else if (includeLowerCase.toLowerCase() === 'no') {
+    lowerCaseArr = [];
   } else {
     var includeLowerCase = prompt(
       'Would you like to include Lower Case letters? (yes or no ONLY)'
@@ -65,9 +71,11 @@ while (!isValid) {
   );
   if (includeUpperCase.toLowerCase() === 'yes') {
     UpperCaseArr = possibleCharacters.slice(27, 53);
+    hasUpper = true;
+
     console.log(UpperCaseArr);
-  } else if(includeUpperCase.toLowerCase() === 'no'){
-    lowerCaseArr = []
+  } else if (includeUpperCase.toLowerCase() === 'no') {
+    lowerCaseArr = [];
   } else {
     var includeUpperCase = prompt(
       'Would you like to include Lower Case letters? (yes or no ONLY)'
@@ -81,9 +89,11 @@ while (!isValid) {
   );
   if (includeNumericNum.toLowerCase() === 'yes') {
     numericArr = possibleCharacters.slice(53, 63);
+    hasNum = true;
+
     console.log(numericArr);
-  }else if(includeNumericNum.toLowerCase() === 'no'){
-    lowerCaseArr = []
+  } else if (includeNumericNum.toLowerCase() === 'no') {
+    lowerCaseArr = [];
   } else {
     var includeNumericNum = prompt(
       'Would you like to include Lower Case letters? (yes or no ONLY)'
@@ -98,9 +108,10 @@ while (!isValid) {
 
   if (includeSpecialCharacters.toLowerCase() === 'yes') {
     specialArr = possibleCharacters.slice(63, possibleCharacters.length);
+    hasSpecial = true;
     console.log(specialArr);
-  }else if(includeSpecialCharacters.toLowerCase() === 'no'){
-    lowerCaseArr = []
+  } else if (includeSpecialCharacters.toLowerCase() === 'no') {
+    lowerCaseArr = [];
   } else {
     var includeSpecialCharacters = prompt(
       'Would you like to include Lower Case letters? (yes or no ONLY)'
@@ -124,10 +135,21 @@ while (!isValid) {
 // prompts();
 
 // Write password to the #password input
-function generatePassword() {
-  isValid();
-  const length = +passLength
-  const hasLower = 
+function generatePassword(passLength, hasLower, hasUpper, hasNum, hasSpecial) {
+  let generatedPassword = '';
+
+  const typesArr = [{ hasLower } + { hasUpper } + { hasNum } + { hasSpecial }];
+  for (let i = 0; i < typesArr.length; i++) {
+    if (!typesArr[i]) {
+      typesArr[i].pop();
+    }
+    return typesArr;
+  }
+  if (typesArr.length === 0) {
+    return '';
+  }
+
+  for (let i = 0; i < passLength; i + typesArr.length) {}
 }
 
 function writePassword() {
@@ -139,7 +161,6 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);
-
 
 //  NEW
 const randomFunc = {
