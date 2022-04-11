@@ -190,7 +190,7 @@ function generatePassword() {
       const funcName = Object.keys(type)[i % 4];
       console.log('funcName:', funcName);
 
-      generatedPassword += randomFunc[funcName]();
+      generatedPassword += randomFunc.value(type)[funcName]();
     });
   }
 }
